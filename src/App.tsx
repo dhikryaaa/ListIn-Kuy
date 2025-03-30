@@ -1,5 +1,6 @@
-import TampilkanTugas, { ListTugasDeclaration } from './TampilkanTugas'
+import TampilkanTugas, { ListTugasDeclaration } from './TampilkanTugas';
 import { useState } from 'react';
+import './App.css';
 
 function App() {
     const task: ListTugasDeclaration[] = [];
@@ -20,59 +21,59 @@ function App() {
     };
 
     const handleEditTask = (task: ListTugasDeclaration) => {
-      setEditTask(task);
-      setName(task.name);
-      setDescription(task.description);
-      setDeadline(task.deadline);
+        setEditTask(task);
+        setName(task.name);
+        setDescription(task.description);
+        setDeadline(task.deadline);
     };
 
     const handleAddTask = (e: React.FormEvent) => {
-      e.preventDefault();
-      if (!name || !description || !deadline) return;
-  
-      if (editTask) {
-          setListTugas(listTugas.map(task =>
-              task.id === editTask.id
-                  ? { ...task, name, description, deadline }
-                  : task
-          ));
-          setEditTask(null);
-      } else {
-          const newTask: ListTugasDeclaration = {
-              id: listTugas.length + 1,
-              name,
-              description,
-              deadline
-          };
-          setListTugas([...listTugas, newTask]);
-      }
-  
-      setName('');
-      setDescription('');
-      setDeadline('');
-    };  
-  
+        e.preventDefault();
+        if (!name || !description || !deadline) return;
+
+        if (editTask) {
+            setListTugas(listTugas.map(task =>
+                task.id === editTask.id
+                    ? { ...task, name, description, deadline }
+                    : task
+            ));
+            setEditTask(null);
+        } else {
+            const newTask: ListTugasDeclaration = {
+                id: listTugas.length + 1,
+                name,
+                description,
+                deadline
+            };
+            setListTugas([...listTugas, newTask]);
+        }
+
+        setName('');
+        setDescription('');
+        setDeadline('');
+    };
+
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-gray-200 to-indigo-100">          
-            <div className="bg-white rounded-2xl shadow-md w-full max-w-4xl p-6">
+        <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-gray-200 to-indigo-100">
+            <div className="bg-white rounded-2xl shadow-md w-full max-w-5xl p-8">
                 <h1 className="text-3xl font-bold mb-1 text-black text-center flex justify-center items-center">
-                 <img 
-                  src="https://readme-typing-svg.herokuapp.com/?font=Righteous&size=35&center=true&vCenter=true&width=500&height=70&duration=4000&lines=Ada+Tugas+Baru?;ListIn+Kuy!;" 
-                  alt="Typing Animation"
-                  />
+                    <img
+                        src="https://readme-typing-svg.herokuapp.com/?font=Righteous&size=35&center=true&vCenter=true&width=500&height=70&duration=4000&lines=Ada+Tugas+Baru?;ListIn+Kuy!;"
+                        alt="Typing Animation"
+                    />
                 </h1>
-                <p className="mb-6 font-medium text-slate-500 text-center">
-                  Aplikasi Todo List sederhana menggunakan React
+                <p className="mb-6 font-medium font-montserrat text-slate-500 text-center">
+                    Aplikasi Todo List sederhana menggunakan React
                 </p>
 
                 {/* Form Input */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="p-4 bg-gray-50 rounded-xl">
-                        <h2 className="text-xl font-semibold mb-3 text-black text-center">
-                          Masukkan Tugas
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="p-5 bg-gray-50 rounded-xl h-[430px]">
+                        <h2 className="text-xl font-montserrat font-semibold mb-3 text-black text-center">
+                            Masukkan Tugas
                         </h2>
                         <form onSubmit={handleAddTask}>
-                            <div className="mb-2">
+                            <div className="mb-3">
                                 <label className="block mb-2 text-slate-700 text-sm font-bold">Name</label>
                                 <input
                                     type="text"
@@ -82,7 +83,7 @@ function App() {
                                     placeholder="Masukkan nama tugas"
                                 />
                             </div>
-                            <div className="mb-2">
+                            <div className="mb-3">
                                 <label className="block mb-2 text-slate-700 text-sm font-bold">Description</label>
                                 <input
                                     type="text"
@@ -107,27 +108,25 @@ function App() {
                             >
                                 {editTask ? "Update" : "Submit"}
                             </button>
-                            {editTask && (
-                              <button
-                                  type="button"
-                                  onClick={() => {
-                                      setEditTask(null);
-                                      setName('');
-                                      setDescription('');
-                                      setDeadline('');
-                                  }}
-                                  className="w-full mt-2 text-gray-700 bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                              >
-                                  Cancel
-                              </button>
-                          )}
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setEditTask(null);
+                                    setName('');
+                                    setDescription('');
+                                    setDeadline('');
+                                }}
+                                className={`w-full mt-2 text-gray-700 bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center ${editTask ? "block" : "hidden"}`}
+                            >
+                                Cancel
+                            </button>
                         </form>
                     </div>
 
                     {/* Search and List Task */}
-                    <div className="p-4 bg-gray-50 rounded-xl">
+                    <div className="p-5 bg-gray-50 rounded-xl h-[430px]">
                         <h2 className="text-xl font-semibold mb-3 text-black text-center">
-                          Daftar Tugas
+                            Daftar Tugas
                         </h2>
 
                         {/* Input Search */}
@@ -142,8 +141,8 @@ function App() {
                         </div>
 
                         {/* List Tugas dengan Scroll */}
-                        <div className="overflow-y-auto max-h-64">
-                        <TampilkanTugas listTugas={filteredTasks} onDeleteTask={handleDeleteTask} onEditTask={handleEditTask} />
+                        <div className="overflow-y-scroll max-h-72 scrollbar-thin scrollbar-thumb-gray-400">
+                            <TampilkanTugas listTugas={filteredTasks} onDeleteTask={handleDeleteTask} onEditTask={handleEditTask} />
                         </div>
                     </div>
                 </div>
